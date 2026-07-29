@@ -1,0 +1,17 @@
+{
+  "name": "questcare-lis",
+  "private": true,
+  "packageManager": "pnpm@11.9.0",
+  "scripts": {
+    "dev": "pnpm --parallel --filter @questcare/lis --filter @questcare/analyzer-gateway dev",
+    "build": "pnpm -r build",
+    "lint": "pnpm -r lint",
+    "typecheck": "pnpm -r typecheck",
+    "test": "pnpm -r test"
+  },
+  "devDependencies": {
+    "eslint": "^9.39.5",
+    "eslint-config-next": "16.2.12",
+    "typescript": "5.9.3"
+  }
+}

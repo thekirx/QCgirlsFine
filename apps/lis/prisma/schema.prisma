@@ -1,0 +1,352 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+enum Sex {
+  FEMALE
+  MALE
+  OTHER
+  UNKNOWN
+}
+
+enum OrderPriority {
+  ROUTINE
+  STAT
+}
+
+enum OrderStatus {
+  ACTIVE
+  CANCELED
+  RELEASED
+}
+
+enum ResultSetStatus {
+  PENDING
+  ENTERED
+  FOR_VALIDATION
+  VALIDATED
+  RELEASED
+}
+
+enum ValueType {
+  NUMERIC
+  TEXT
+  QUALITATIVE
+}
+
+enum ResultSource {
+  MANUAL
+  ANALYZER
+}
+
+enum AnalyzerConnectionStatus {
+  ONLINE
+  OFFLINE
+  DELAYED
+  ERROR
+}
+
+enum AnalyzerMessageStatus {
+  RECEIVED
+  APPLIED
+  EXCEPTION
+  DUPLICATE
+}
+
+enum AnalyzerExceptionType {
+  UNKNOWN_ACCESSION
+  UNKNOWN_TEST
+  INVALID_VALUE
+  ORDER_CANCELED
+  ORDER_RELEASED
+  IDEMPOTENCY_CONFLICT
+}
+
+enum AnalyzerExceptionStatus {
+  OPEN
+  RECONCILED
+  REJECTED
+}
+
+model User {
+  id             String      @id @default(uuid())
+  username       String      @unique
+  displayName    String
+  passwordHash   String
+  active         Boolean     @default(true)
+  failedAttempts Int         @default(0)
+  lockedUntil    DateTime?
+  createdAt      DateTime    @default(now())
+  updatedAt      DateTime    @updatedAt
+  roles          UserRole[]
+  sessions       Session[]
+}
+
+model Role {
+  id          String           @id @default(uuid())
+  code        String           @unique
+  name        String
+  users       UserRole[]
+  permissions RolePermission[]
+}
+
+model Permission {
+  id          String           @id @default(uuid())
+  code        String           @unique
+  description String
+  roles       RolePermission[]
+}
+
+model UserRole {
+  userId String
+  roleId String
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+  role   Role   @relation(fields: [roleId], references: [id], onDelete: Cascade)
+
+  @@id([userId, roleId])
+}
+
+model RolePermission {
+  roleId       String
+  permissionId String
+  role         Role       @relation(fields: [roleId], references: [id], onDelete: Cascade)
+  permission   Permission @relation(fields: [permissionId], references: [id], onDelete: Cascade)
+
+  @@id([roleId, permissionId])
+}
+
+model Session {
+  id         String    @id @default(uuid())
+  tokenHash  String    @unique
+  userId     String
+  expiresAt  DateTime
+  lastSeenAt DateTime  @default(now())
+  revokedAt  DateTime?
+  createdAt  DateTime  @default(now())
+  user       User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId, expiresAt])
+}
+
+model Patient {
+  id                  String     @id @default(uuid())
+  medicalRecordNumber String     @unique
+  firstName           String
+  middleName          String?
+  lastName            String
+  birthDate           DateTime   @db.Date
+  sex                 Sex
+  phone               String?
+  address             String?
+  version             Int        @default(1)
+  createdAt           DateTime   @default(now())
+  updatedAt           DateTime   @updatedAt
+  orders              LabOrder[]
+
+  @@index([lastName, firstName])
+}
+
+model TestDefinition {
+  id            String           @id @default(uuid())
+  code          String           @unique
+  name          String
+  section       String
+  valueType     ValueType
+  unit          String?
+  decimalPlaces Int?
+  active        Boolean          @default(true)
+  orderTests    OrderTest[]
+  ranges        ReferenceRange[]
+}
+
+model ReferenceRange {
+  id               String         @id @default(uuid())
+  testDefinitionId String
+  sex              Sex?
+  low              Decimal?       @db.Decimal(14, 4)
+  high             Decimal?       @db.Decimal(14, 4)
+  text             String?
+  testDefinition   TestDefinition @relation(fields: [testDefinitionId], references: [id], onDelete: Cascade)
+}
+
+model AccessionCounter {
+  id           String   @id @default(uuid())
+  siteCode     String
+  businessDate DateTime @db.Date
+  nextValue    Int      @default(1)
+
+  @@unique([siteCode, businessDate])
+}
+
+model LabOrder {
+  id                 String        @id @default(uuid())
+  accessionNumber    String        @unique
+  patientId          String
+  priority           OrderPriority @default(ROUTINE)
+  requestingPhysician String
+  source             String
+  clinicalNotes      String?
+  status             OrderStatus   @default(ACTIVE)
+  cancellationReason String?
+  canceledAt         DateTime?
+  createdAt          DateTime      @default(now())
+  updatedAt          DateTime      @updatedAt
+  patient            Patient       @relation(fields: [patientId], references: [id])
+  tests              OrderTest[]
+  specimen           Specimen?
+  resultSet          ResultSet?
+  reports            ReportSnapshot[]
+
+  @@index([patientId, createdAt])
+  @@index([status, priority, updatedAt])
+}
+
+model OrderTest {
+  id               String         @id @default(uuid())
+  orderId          String
+  testDefinitionId String
+  sequence         Int
+  required         Boolean        @default(true)
+  order            LabOrder       @relation(fields: [orderId], references: [id], onDelete: Cascade)
+  testDefinition   TestDefinition @relation(fields: [testDefinitionId], references: [id])
+  result           Result?
+
+  @@unique([orderId, testDefinitionId])
+}
+
+model Specimen {
+  id        String   @id @default(uuid())
+  orderId   String   @unique
+  sampleId  String   @unique
+  type      String
+  createdAt DateTime @default(now())
+  order     LabOrder @relation(fields: [orderId], references: [id], onDelete: Cascade)
+}
+
+model ResultSet {
+  id           String          @id @default(uuid())
+  orderId      String          @unique
+  status       ResultSetStatus @default(PENDING)
+  submittedAt  DateTime?
+  validatedAt  DateTime?
+  validatedBy  String?
+  releasedAt   DateTime?
+  releasedBy   String?
+  createdAt    DateTime        @default(now())
+  updatedAt    DateTime        @updatedAt
+  order        LabOrder        @relation(fields: [orderId], references: [id], onDelete: Cascade)
+  results      Result[]
+}
+
+model Result {
+  id              String       @id @default(uuid())
+  resultSetId     String
+  orderTestId     String       @unique
+  valueType       ValueType
+  numericValue    Decimal?     @db.Decimal(18, 6)
+  textValue       String?
+  qualitativeCode String?
+  unit            String?
+  rangeText       String?
+  abnormalFlag    String?
+  source          ResultSource
+  version         Int          @default(1)
+  enteredBy       String
+  createdAt       DateTime     @default(now())
+  updatedAt       DateTime     @updatedAt
+  resultSet       ResultSet    @relation(fields: [resultSetId], references: [id], onDelete: Cascade)
+  orderTest       OrderTest    @relation(fields: [orderTestId], references: [id])
+  revisions       ResultRevision[]
+}
+
+model ResultRevision {
+  id        String   @id @default(uuid())
+  resultId  String
+  version   Int
+  snapshot  Json
+  actorId   String
+  source    ResultSource
+  createdAt DateTime @default(now())
+  result    Result   @relation(fields: [resultId], references: [id], onDelete: Cascade)
+
+  @@unique([resultId, version])
+}
+
+model ReportSnapshot {
+  id           String   @id @default(uuid())
+  orderId      String
+  reportNumber String   @unique
+  mimeType     String   @default("application/pdf")
+  sha256       String
+  bytes        Bytes
+  releasedAt   DateTime
+  createdAt    DateTime @default(now())
+  order        LabOrder @relation(fields: [orderId], references: [id])
+
+  @@index([orderId, releasedAt])
+}
+
+model AuditEvent {
+  id          String   @id @default(uuid())
+  actorType   String
+  actorId     String
+  action      String
+  entityType  String
+  entityId    String
+  beforeJson  Json?
+  afterJson   Json?
+  reason      String?
+  requestId   String
+  workstation String?
+  occurredAt  DateTime @default(now())
+
+  @@index([entityType, entityId, occurredAt])
+  @@index([actorId, occurredAt])
+  @@index([action, occurredAt])
+}
+
+model AnalyzerConnection {
+  id           String                   @id @default(uuid())
+  code         String                   @unique
+  name         String
+  adapterType  String
+  enabled      Boolean                  @default(true)
+  status       AnalyzerConnectionStatus @default(OFFLINE)
+  lastSeenAt   DateTime?
+  messages     AnalyzerMessage[]
+}
+
+model AnalyzerMessage {
+  id               String                @id @default(uuid())
+  gatewayMessageId String
+  connectionId     String
+  idempotencyKey   String
+  rawSha256        String
+  rawPayload       String
+  normalizedJson   Json
+  status           AnalyzerMessageStatus @default(RECEIVED)
+  deliveryCount    Int                   @default(1)
+  receivedAt       DateTime              @default(now())
+  appliedAt        DateTime?
+  connection       AnalyzerConnection    @relation(fields: [connectionId], references: [id])
+  exception        AnalyzerException?
+
+  @@unique([connectionId, idempotencyKey])
+  @@index([status, receivedAt])
+}
+
+model AnalyzerException {
+  id                String                  @id @default(uuid())
+  analyzerMessageId String                  @unique
+  type              AnalyzerExceptionType
+  status            AnalyzerExceptionStatus @default(OPEN)
+  reason            String
+  resolvedBy        String?
+  resolvedAt        DateTime?
+  createdAt         DateTime                @default(now())
+  analyzerMessage   AnalyzerMessage         @relation(fields: [analyzerMessageId], references: [id], onDelete: Cascade)
+}
