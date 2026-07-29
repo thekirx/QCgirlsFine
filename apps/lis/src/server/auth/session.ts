@@ -1,5 +1,5 @@
 import { createHash, randomBytes } from "node:crypto";
-import type { PrismaClient } from "@prisma/client";
+import type { Prisma, PrismaClient } from "@prisma/client";
 import { cookies } from "next/headers";
 import { permissionsForRoles, type Permission, type RoleCode } from "@/modules/auth/policy";
 import { prisma } from "@/server/db/client";
@@ -7,7 +7,7 @@ import { prisma } from "@/server/db/client";
 export const SESSION_COOKIE = "questcare_session";
 const hashToken = (token: string) => createHash("sha256").update(token).digest("hex");
 
-export async function createSession(client: PrismaClient, userId: string) {
+export async function createSession(client: PrismaClient | Prisma.TransactionClient, userId: string) {
   const token = randomBytes(32).toString("base64url");
   await client.session.create({ data: { tokenHash: hashToken(token), userId, expiresAt: new Date(Date.now() + 30 * 60 * 1000) } });
   return token;

@@ -7,7 +7,10 @@
     "build": "pnpm -r build",
     "lint": "pnpm -r lint",
     "typecheck": "pnpm -r typecheck",
-    "test": "pnpm -r test"
+    "test": "pnpm -r test",
+    "test:e2e": "pnpm --filter @questcare/lis test:e2e",
+    "db:migrate": "pnpm --filter @questcare/lis exec prisma migrate dev",
+    "db:seed": "pnpm --filter @questcare/lis exec prisma db seed"
   },
   "devDependencies": {
     "eslint": "^9.39.5",
