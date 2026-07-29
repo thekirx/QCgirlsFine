@@ -1,0 +1,2 @@
+import { requirePermission } from "@/server/auth/session";import { prisma } from "@/server/db/client";import { apiError } from "@/server/http/response";
+export async function GET(_:Request,{params}:{params:Promise<{id:string}>}){try{await requirePermission("report:view");const report=await prisma.reportSnapshot.findUniqueOrThrow({where:{id:(await params).id}});return new Response(report.bytes,{headers:{"content-type":"application/pdf","content-disposition":`inline; filename="${report.reportNumber}.pdf"`,"x-report-sha256":report.sha256}});}catch(e){return apiError(e)}}

@@ -1,0 +1,2 @@
+import { NextResponse } from "next/server";import { createOrder } from "@/modules/orders/service";import { requirePermission } from "@/server/auth/session";import { prisma } from "@/server/db/client";import { apiError } from "@/server/http/response";
+export async function POST(request:Request){try{const user=await requirePermission("order:create");const order=await createOrder(prisma,await request.json(),{actorId:user.id,requestId:crypto.randomUUID()});return NextResponse.json(order,{status:201});}catch(e){return apiError(e)}}

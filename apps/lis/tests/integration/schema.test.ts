@@ -9,6 +9,13 @@ const prisma = createPrismaClient(databaseUrl);
 describe("MVP database schema", () => {
   beforeEach(async () => {
     await prisma.auditEvent.deleteMany();
+    await prisma.reportSnapshot.deleteMany();
+    await prisma.resultRevision.deleteMany();
+    await prisma.result.deleteMany();
+    await prisma.orderTest.deleteMany();
+    await prisma.specimen.deleteMany();
+    await prisma.resultSet.deleteMany();
+    await prisma.labOrder.deleteMany();
     await prisma.patient.deleteMany();
   });
 

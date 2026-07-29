@@ -1,0 +1,2 @@
+import { NextResponse } from "next/server";import { requirePermission } from "@/server/auth/session";import { prisma } from "@/server/db/client";import { apiError } from "@/server/http/response";
+export async function GET(){try{await requirePermission("order:view");return NextResponse.json(await prisma.testDefinition.findMany({where:{active:true},orderBy:[{section:"asc"},{name:"asc"}]}));}catch(e){return apiError(e)}}

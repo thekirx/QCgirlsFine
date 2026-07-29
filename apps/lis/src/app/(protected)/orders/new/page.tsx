@@ -1,0 +1,1 @@
+import { OrderForm } from "./order-form";export default function NewOrderPage(){return <main className="page narrow-page"><div className="page-heading"><div><p className="eyebrow">Orders</p><h1>New laboratory order</h1><p>Link approved tests to a registered patient.</p></div></div><OrderForm/></main>}
