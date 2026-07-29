@@ -1,0 +1,2 @@
+import { NextResponse } from "next/server";import { rejectAnalyzerException } from "@/modules/analyzers/service";import { requirePermission } from "@/server/auth/session";import { prisma } from "@/server/db/client";import { apiError } from "@/server/http/response";
+export async function POST(_:Request,{params}:{params:Promise<{id:string}>}){try{const user=await requirePermission("analyzer:reconcile");return NextResponse.json(await rejectAnalyzerException(prisma,(await params).id,user.id));}catch(e){return apiError(e)}}

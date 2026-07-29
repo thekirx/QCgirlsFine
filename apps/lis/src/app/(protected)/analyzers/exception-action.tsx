@@ -1,0 +1,1 @@
+"use client";import { useRouter } from "next/navigation";export function ExceptionAction({id}:{id:string}){const router=useRouter();return <button className="small-button" onClick={async()=>{await fetch(`/api/analyzer-exceptions/${id}`,{method:"POST"});router.refresh()}}>Reject</button>}

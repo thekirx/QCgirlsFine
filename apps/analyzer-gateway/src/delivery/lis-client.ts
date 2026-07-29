@@ -1,0 +1,2 @@
+import type { NormalizedAnalyzerEnvelope } from "@questcare/analyzer-contracts";
+export async function deliverEnvelope(baseUrl:string,token:string,envelope:NormalizedAnalyzerEnvelope){const response=await fetch(`${baseUrl}/api/gateway/v1/messages`,{method:"POST",headers:{authorization:`Bearer ${token}`,"content-type":"application/json","idempotency-key":envelope.idempotencyKey,"x-gateway-id":envelope.gatewayId},body:JSON.stringify(envelope)});if(!response.ok)throw new Error(`LIS delivery failed (${response.status})`);return response.json()}
