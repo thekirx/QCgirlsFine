@@ -1,0 +1,2 @@
+import { ClipboardList } from "lucide-react";
+export default function QueuePage() { return <main className="page"><div className="page-heading"><div><p className="eyebrow">Laboratory operations</p><h1>Work queue</h1><p>Orders will appear here as soon as they receive an accession number.</p></div></div><section className="empty-state"><ClipboardList size={38}/><h2>No active orders yet</h2><p>Register a patient and create the first laboratory order to begin.</p></section></main>; }
