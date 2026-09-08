@@ -4,11 +4,13 @@
   "packageManager": "pnpm@11.9.0",
   "scripts": {
     "dev": "pnpm --parallel --filter @questcare/lis --filter @questcare/analyzer-gateway dev",
+    "dev:desktop": "pnpm --filter @optrizo/desktop dev",
     "build": "pnpm -r build",
     "lint": "pnpm -r lint",
     "typecheck": "pnpm -r typecheck",
     "test": "pnpm -r test",
     "test:e2e": "pnpm --filter @questcare/lis test:e2e",
+    "test:desktop": "pnpm --filter @optrizo/desktop test",
     "db:migrate": "pnpm --filter @questcare/lis exec prisma migrate dev",
     "db:seed": "pnpm --filter @questcare/lis exec prisma db seed"
   },

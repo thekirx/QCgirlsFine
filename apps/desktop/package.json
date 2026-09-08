@@ -1,0 +1,16 @@
+{
+  "name": "@optrizo/desktop",
+  "version": "0.1.0",
+  "private": true,
+  "main": "main.js",
+  "scripts": {
+    "dev": "electron .",
+    "test": "node --test test/*.test.js",
+    "lint": "node --check main.js && node --check preload.js && node --check window-options.js",
+    "typecheck": "node --check main.js && node --check preload.js && node --check window-options.js",
+    "build": "node --check main.js && node --check preload.js && node --check window-options.js"
+  },
+  "devDependencies": {
+    "electron": "44.2.0"
+  }
+}
