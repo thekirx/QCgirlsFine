@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
+import { UIThemeProvider } from "./ui-theme-provider";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -13,7 +14,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Questcare Offline LIS",
+  title: "Optrizo Offline LIS",
   description: "Local laboratory information system",
 };
 
@@ -25,9 +26,20 @@ export default function RootLayout({
   return (
     <html
       lang="en"
+      data-ui-theme="modern"
+      suppressHydrationWarning
       className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
     >
-      <body className="min-h-full flex flex-col">{children}</body>
+      <head>
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `(function(){try{var t=localStorage.getItem("optrizo-ui-theme");document.documentElement.dataset.uiTheme=t==="classic"?"classic":"modern";}catch(e){document.documentElement.dataset.uiTheme="modern";}})();`,
+          }}
+        />
+      </head>
+      <body className="min-h-full flex flex-col">
+        <UIThemeProvider>{children}</UIThemeProvider>
+      </body>
     </html>
   );
 }

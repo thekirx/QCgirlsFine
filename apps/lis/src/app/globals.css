@@ -1,6 +1,12 @@
 @import "tailwindcss";
 @import "./analyzer.css";
 
+.login-theme-switch{position:fixed;top:20px;right:20px;z-index:10}
+.ui-theme-toggle{display:inline-flex;padding:3px;border:1px solid var(--line);border-radius:10px;background:var(--card);box-shadow:0 8px 24px rgba(20,48,44,.08)}
+.ui-theme-toggle button{min-width:82px;border:0;border-radius:7px;padding:8px 12px;background:transparent;color:var(--muted);font-size:12px;font-weight:750;cursor:pointer}
+.ui-theme-toggle button[aria-pressed="true"]{background:var(--teal);color:white}
+.ui-theme-toggle button:focus-visible{outline:2px solid var(--orange);outline-offset:2px}
+
 :root { --ink:#152927; --muted:#667774; --line:#dce5e2; --paper:#f7faf9; --card:#fff; --teal:#126b62; --teal-dark:#0c514b; --mint:#dff1ec; --orange:#d56a2e; --shadow:0 18px 55px rgba(20,48,44,.10); }
 * { box-sizing:border-box; }
 html, body { min-height:100%; }

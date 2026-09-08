@@ -13,7 +13,7 @@ export function LoginForm() {
     router.push("/queue"); router.refresh();
   }
   return <form action={submit} className="login-card">
-    <div className="brand-mark"><ShieldCheck size={22} /> QC</div><p className="eyebrow">Questcare Offline LIS</p><h1>Welcome back</h1>
+    <div className="brand-mark"><ShieldCheck size={22} /> O</div><p className="eyebrow">Optrizo Offline LIS</p><h1>Welcome back</h1>
     <p className="muted">Sign in to continue laboratory operations on this local network.</p>
     <label>Username<input name="username" autoComplete="username" defaultValue="admin" required /></label>
     <label>Password<input name="password" type="password" autoComplete="current-password" defaultValue="Admin123!Quest" required /></label>
