@@ -5,13 +5,13 @@ import {
   type ReactNode,
   useCallback,
   useContext,
-  useEffect,
   useMemo,
-  useState,
+  useSyncExternalStore,
 } from "react";
 
 export type UITheme = "modern" | "classic";
 export const UI_THEME_STORAGE_KEY = "optrizo-ui-theme";
+const UI_THEME_CHANGE_EVENT = "optrizo-ui-theme-change";
 
 type UIThemeContextValue = {
   theme: UITheme;
@@ -24,18 +24,31 @@ function isUITheme(value: string | undefined): value is UITheme {
   return value === "modern" || value === "classic";
 }
 
-export function UIThemeProvider({ children }: { children: ReactNode }) {
-  const [theme, setTheme] = useState<UITheme>("modern");
+function subscribeToUITheme(onStoreChange: () => void) {
+  window.addEventListener(UI_THEME_CHANGE_EVENT, onStoreChange);
+  return () => window.removeEventListener(UI_THEME_CHANGE_EVENT, onStoreChange);
+}
 
-  useEffect(() => {
-    const restored = document.documentElement.dataset.uiTheme;
-    if (isUITheme(restored)) setTheme(restored);
-  }, []);
+function getClientUITheme(): UITheme {
+  const currentTheme = document.documentElement.dataset.uiTheme;
+  return isUITheme(currentTheme) ? currentTheme : "modern";
+}
+
+function getServerUITheme(): UITheme {
+  return "modern";
+}
+
+export function UIThemeProvider({ children }: { children: ReactNode }) {
+  const theme = useSyncExternalStore(
+    subscribeToUITheme,
+    getClientUITheme,
+    getServerUITheme,
+  );
 
   const selectTheme = useCallback((nextTheme: UITheme) => {
-    setTheme(nextTheme);
     document.documentElement.dataset.uiTheme = nextTheme;
     window.localStorage.setItem(UI_THEME_STORAGE_KEY, nextTheme);
+    window.dispatchEvent(new Event(UI_THEME_CHANGE_EVENT));
   }, []);
 
   const value = useMemo(() => ({ theme, selectTheme }), [theme, selectTheme]);
