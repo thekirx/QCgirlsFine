@@ -68,6 +68,133 @@ html[data-ui-theme="classic"] .action-bar{background:#e9eaec;box-shadow:inset 1p
 html[data-ui-theme="classic"] .ui-theme-toggle{padding:2px;border-color:#66758a;border-radius:0;background:#dfe2e5;box-shadow:inset 1px 1px #fff,inset -1px -1px #858d96}
 html[data-ui-theme="classic"] .ui-theme-toggle button{border-radius:0;color:#243b58}
 html[data-ui-theme="classic"] .ui-theme-toggle button[aria-pressed="true"]{background:#123f78;color:#fff;box-shadow:inset 1px 1px #0b294d,inset -1px -1px #567aa4}
+
+.win98-titlebar,.win98-menubar,.win98-statusbar{display:none}
+
+html[data-ui-theme="windows98"]{
+  --ink:#000;--muted:#404040;--line:#808080;--paper:#008080;--card:#c0c0c0;
+  --teal:#000080;--teal-dark:#000060;--mint:#fff;--orange:#800000;
+  --shadow:inset 1px 1px #fff,inset 2px 2px #dfdfdf,inset -1px -1px #000,inset -2px -2px #808080;
+}
+html[data-ui-theme="windows98"] body{background:#008080;color:#000;font-family:Tahoma,"MS Sans Serif",Arial,sans-serif;font-size:12px}
+html[data-ui-theme="windows98"] .app-shell{min-height:calc(100vh - 16px);margin:8px;grid-template-columns:190px minmax(0,1fr);grid-template-rows:26px minmax(0,1fr);background:#c0c0c0;border:1px solid; border-color:#fff #000 #000 #fff;box-shadow:1px 1px 0 #dfdfdf,-1px -1px 0 #808080}
+html[data-ui-theme="windows98"] .win98-titlebar{grid-column:1/-1;grid-row:1;display:flex;align-items:center;gap:5px;margin:2px;padding:2px 3px;background:#000080;color:#fff;font-weight:700;line-height:18px}
+html[data-ui-theme="windows98"] .win98-app-icon{display:grid;place-items:center;width:16px;height:16px;background:#fff;color:#000080;font-size:10px;font-weight:900}
+html[data-ui-theme="windows98"] .win98-window-controls{display:flex;gap:2px;margin-left:auto}
+html[data-ui-theme="windows98"] .win98-window-controls span{display:grid;place-items:center;width:16px;height:14px;background:#c0c0c0;color:#000;border:1px solid;border-color:#fff #000 #000 #fff;box-shadow:inset -1px -1px #808080;font:bold 11px/1 Tahoma,sans-serif}
+html[data-ui-theme="windows98"] .sidebar{grid-column:1;grid-row:2;position:relative;height:auto;min-height:0;padding:8px 6px;background:#c0c0c0;color:#000;border:0;border-right:2px groove #fff;gap:12px}
+html[data-ui-theme="windows98"] .workspace{grid-column:2;grid-row:2;display:flex;min-height:0;flex-direction:column;background:#c0c0c0}
+html[data-ui-theme="windows98"] .workspace>.page{flex:1;min-height:0}
+html[data-ui-theme="windows98"] .win98-menubar{display:flex;gap:18px;height:24px;align-items:center;padding:0 8px;color:#000;background:#c0c0c0;border-bottom:1px solid #808080;font-size:11px}
+html[data-ui-theme="windows98"] .win98-menubar span{padding:2px 4px}
+html[data-ui-theme="windows98"] .side-brand{height:42px;padding:4px;color:#000080;border:1px solid;border-color:#808080 #fff #fff #808080;background:#fff}
+html[data-ui-theme="windows98"] .side-brand>span{width:30px;height:30px;border-radius:0;background:#000080;color:#fff;border:1px solid;border-color:#fff #000 #000 #fff}
+html[data-ui-theme="windows98"] .side-brand small,html[data-ui-theme="windows98"] .side-user small{color:#404040;font-size:9px;letter-spacing:.05em}
+html[data-ui-theme="windows98"] .sidebar nav{gap:2px}
+html[data-ui-theme="windows98"] .sidebar nav a{min-height:31px;padding:6px;color:#000;border:1px solid transparent;border-radius:0;font-size:11px;font-weight:400}
+html[data-ui-theme="windows98"] .sidebar nav a:hover,html[data-ui-theme="windows98"] .sidebar nav a:focus-visible{background:#000080;color:#fff;border-color:#000080;outline:1px dotted #fff;outline-offset:-3px}
+html[data-ui-theme="windows98"] .sidebar nav svg{width:16px;height:16px;stroke-width:1.7}
+html[data-ui-theme="windows98"] .side-user{padding:6px;border:1px solid;border-color:#808080 #fff #fff #808080;background:#dfdfdf;color:#000}
+html[data-ui-theme="windows98"] .logout-button{width:100%;justify-content:center;padding:5px 8px;background:#c0c0c0;color:#000;border:1px solid;border-color:#fff #000 #000 #fff;box-shadow:inset -1px -1px #808080;font-size:11px}
+html[data-ui-theme="windows98"] .logout-button:active{border-color:#000 #fff #fff #000;box-shadow:inset 1px 1px #808080}
+html[data-ui-theme="windows98"] .topbar{height:46px;flex:none;padding:4px 8px;background:#c0c0c0;color:#000;border:0;border-bottom:2px groove #fff;font-size:11px}
+html[data-ui-theme="windows98"] .topbar>div:first-child{padding:5px 8px;border:1px solid;border-color:#808080 #fff #fff #808080;background:#dfdfdf}
+html[data-ui-theme="windows98"] .status-dot{width:8px;height:8px;border-radius:0;background:#00a000;box-shadow:inset 1px 1px #004000,inset -1px -1px #80ff80}
+html[data-ui-theme="windows98"] .ui-theme-toggle{padding:2px;border:1px solid;border-color:#808080 #fff #fff #808080;border-radius:0;background:#c0c0c0;box-shadow:none}
+html[data-ui-theme="windows98"] .ui-theme-toggle button{min-width:70px;padding:5px 8px;border:1px solid;border-color:#fff #000 #000 #fff;border-radius:0;background:#c0c0c0;color:#000;box-shadow:inset -1px -1px #808080;font:11px Tahoma,"MS Sans Serif",sans-serif}
+html[data-ui-theme="windows98"] .ui-theme-toggle button[aria-pressed="true"]{background:#000080;color:#fff;border-color:#000 #fff #fff #000;box-shadow:inset 1px 1px #000;outline:1px dotted #fff;outline-offset:-4px}
+html[data-ui-theme="windows98"] .page{width:100%;max-width:none;margin:0;padding:14px;overflow:auto}
+html[data-ui-theme="windows98"] .page-heading{align-items:center;margin-bottom:12px;padding:8px;background:#fff;border:1px solid;border-color:#808080 #fff #fff #808080;box-shadow:inset 1px 1px #000}
+html[data-ui-theme="windows98"] .page-heading h1{margin:3px 0;font-size:20px;line-height:1.2;letter-spacing:0}
+html[data-ui-theme="windows98"] .eyebrow,html[data-ui-theme="windows98"] .section-label{color:#000080;font-size:10px;letter-spacing:.06em}
+html[data-ui-theme="windows98"] input,
+html[data-ui-theme="windows98"] select,
+html[data-ui-theme="windows98"] textarea{padding:6px 7px;border:2px solid;border-color:#404040 #fff #fff #404040;border-radius:0;background:#fff;color:#000;box-shadow:inset 1px 1px #808080;font:11px Tahoma,"MS Sans Serif",sans-serif}
+html[data-ui-theme="windows98"] input:focus,
+html[data-ui-theme="windows98"] select:focus,
+html[data-ui-theme="windows98"] textarea:focus{border-color:#000 #fff #fff #000;outline:1px dotted #000;outline-offset:-4px;box-shadow:inset 1px 1px #808080}
+html[data-ui-theme="windows98"] .primary-button,
+html[data-ui-theme="windows98"] .link-button,
+html[data-ui-theme="windows98"] .search-row button,
+html[data-ui-theme="windows98"] .small-button,
+html[data-ui-theme="windows98"] .action-bar button{padding:7px 11px;border:1px solid;border-color:#fff #000 #000 #fff;border-radius:0;background:#c0c0c0;color:#000;box-shadow:inset -1px -1px #808080;font:11px Tahoma,"MS Sans Serif",sans-serif;font-weight:400}
+html[data-ui-theme="windows98"] .primary-button:hover,
+html[data-ui-theme="windows98"] .link-button:hover,
+html[data-ui-theme="windows98"] .search-row button:hover,
+html[data-ui-theme="windows98"] .small-button:hover{background:#d4d0c8;color:#000}
+html[data-ui-theme="windows98"] .primary-button:active,
+html[data-ui-theme="windows98"] .link-button:active,
+html[data-ui-theme="windows98"] .search-row button:active,
+html[data-ui-theme="windows98"] .small-button:active{padding:8px 10px 6px 12px;border-color:#000 #fff #fff #000;box-shadow:inset 1px 1px #808080}
+html[data-ui-theme="windows98"] .metric-row{gap:8px;margin-bottom:10px}
+html[data-ui-theme="windows98"] .metric-row>div,
+html[data-ui-theme="windows98"] .table-card,
+html[data-ui-theme="windows98"] .panel,
+html[data-ui-theme="windows98"] .empty-state,
+html[data-ui-theme="windows98"] .analyzer-strip article{border:1px solid;border-color:#fff #000 #000 #fff;border-radius:0;background:#c0c0c0;box-shadow:inset -1px -1px #808080}
+html[data-ui-theme="windows98"] .metric-row>div{padding:9px}
+html[data-ui-theme="windows98"] .metric-row span{color:#404040;font-size:10px}
+html[data-ui-theme="windows98"] .metric-row strong{font-size:19px}
+html[data-ui-theme="windows98"] .table-card{overflow:auto}
+html[data-ui-theme="windows98"] .table-card th{padding:7px 9px;background:#000080;color:#fff;border-right:1px solid #fff;font-size:9px;letter-spacing:.04em}
+html[data-ui-theme="windows98"] .table-card td{padding:8px 9px;border-color:#808080;background:#fff;font-size:11px}
+html[data-ui-theme="windows98"] .table-card tbody tr:nth-child(even) td{background:#efefef}
+html[data-ui-theme="windows98"] .panel{padding:12px}
+html[data-ui-theme="windows98"] .panel-title{margin-bottom:12px;padding-bottom:7px;border-bottom:1px solid #808080}
+html[data-ui-theme="windows98"] .panel-title h2{font-size:14px}
+html[data-ui-theme="windows98"] .badge,
+html[data-ui-theme="windows98"] .icon-link,
+html[data-ui-theme="windows98"] .avatar,
+html[data-ui-theme="windows98"] .test-picker label,
+html[data-ui-theme="windows98"] .patient-picker button,
+html[data-ui-theme="windows98"] .notice,
+html[data-ui-theme="windows98"] .clean-state,
+html[data-ui-theme="windows98"] .action-bar{border-radius:0}
+html[data-ui-theme="windows98"] .badge{padding:3px 5px;border:1px solid #808080;background:#dfdfdf;color:#000}
+html[data-ui-theme="windows98"] .icon-link,
+html[data-ui-theme="windows98"] .avatar{background:#c0c0c0;color:#000080;border:1px solid;border-color:#fff #000 #000 #fff}
+html[data-ui-theme="windows98"] .action-bar{padding:7px;background:#c0c0c0;border:1px solid;border-color:#fff #000 #000 #fff;box-shadow:inset -1px -1px #808080}
+html[data-ui-theme="windows98"] .action-bar .primary-button{background:#c0c0c0;color:#000;border-color:#fff #000 #000 #fff}
+html[data-ui-theme="windows98"] .connection.online{color:#005000}
+html[data-ui-theme="windows98"] .connection.offline,
+html[data-ui-theme="windows98"] .connection.error{color:#800000}
+html[data-ui-theme="windows98"] .win98-statusbar{display:flex;flex:none;height:24px;gap:3px;padding:3px;background:#c0c0c0;border-top:1px solid #fff}
+html[data-ui-theme="windows98"] .win98-statusbar span{display:flex;align-items:center;padding:0 5px;border:1px solid;border-color:#808080 #fff #fff #808080;color:#000;font-size:10px}
+html[data-ui-theme="windows98"] .win98-statusbar span:first-child{flex:1}
+html[data-ui-theme="windows98"] .login-shell{display:grid;min-height:100vh;padding:54px clamp(20px,7vw,100px);gap:18px;background:#008080}
+html[data-ui-theme="windows98"] .login-intro,
+html[data-ui-theme="windows98"] .login-card{position:relative;border:2px solid;border-color:#fff #000 #000 #fff;border-radius:0;background:#c0c0c0;box-shadow:1px 1px 0 #808080}
+html[data-ui-theme="windows98"] .login-intro{align-self:center;min-height:560px;padding:70px clamp(28px,6vw,82px) 44px}
+html[data-ui-theme="windows98"] .login-intro:before,
+html[data-ui-theme="windows98"] .login-card:before{position:absolute;top:3px;right:3px;left:3px;height:24px;padding:4px 6px;background:#000080;color:#fff;font:bold 12px Tahoma,"MS Sans Serif",sans-serif}
+html[data-ui-theme="windows98"] .login-intro:before{content:"Optrizo Offline LIS"}
+html[data-ui-theme="windows98"] .login-card:before{content:"Optrizo Log On"}
+html[data-ui-theme="windows98"] .login-intro h2{margin-top:10px;font-size:38px;line-height:1.08;letter-spacing:-.02em}
+html[data-ui-theme="windows98"] .login-intro>p:not(.eyebrow),html[data-ui-theme="windows98"] .intro-stat span{color:#404040;font-size:14px}
+html[data-ui-theme="windows98"] .login-card{padding:55px 28px 28px}
+html[data-ui-theme="windows98"] .login-card h1{font-size:24px;letter-spacing:0}
+html[data-ui-theme="windows98"] .brand-mark{color:#000080;letter-spacing:0}
+html[data-ui-theme="windows98"] .form-error{border:1px solid #800000;border-radius:0;background:#fff;color:#800000}
+html[data-ui-theme="windows98"] .local-note{color:#404040}
+html[data-ui-theme="windows98"] .login-theme-switch{top:12px;right:12px;padding:3px;background:#c0c0c0;border:1px solid;border-color:#fff #000 #000 #fff;box-shadow:inset -1px -1px #808080}
+@media(max-width:800px){
+  html[data-ui-theme="windows98"] .app-shell{margin:0;min-height:100vh;grid-template-columns:62px minmax(0,1fr)}
+  html[data-ui-theme="windows98"] .sidebar{padding:6px 4px}
+  html[data-ui-theme="windows98"] .side-brand{justify-content:center}
+  html[data-ui-theme="windows98"] .side-brand div{display:none}
+  html[data-ui-theme="windows98"] .sidebar nav a{justify-content:center;font-size:0}
+  html[data-ui-theme="windows98"] .sidebar nav svg{width:18px;height:18px}
+  html[data-ui-theme="windows98"] .sidebar form{display:flex;justify-content:center}
+  html[data-ui-theme="windows98"] .logout-button{display:flex;width:50px;height:28px;justify-content:center;padding:4px;font-size:0}
+  html[data-ui-theme="windows98"] .logout-button svg{width:16px;height:16px}
+  html[data-ui-theme="windows98"] .topbar{height:auto;min-height:48px;align-items:flex-start;gap:5px;flex-direction:column}
+  html[data-ui-theme="windows98"] .topbar-actions{width:100%;gap:6px}
+  html[data-ui-theme="windows98"] .topbar .ui-theme-toggle{width:100%}
+  html[data-ui-theme="windows98"] .topbar .ui-theme-toggle button{min-width:0;flex:1;padding-inline:3px}
+  html[data-ui-theme="windows98"] .page{padding:7px}
+  html[data-ui-theme="windows98"] .page-heading{align-items:flex-start}
+  html[data-ui-theme="windows98"] .login-shell{padding:70px 12px 24px}
+}
 * { box-sizing:border-box; }
 html, body { min-height:100%; }
 body { margin:0; background:var(--paper); color:var(--ink); font-family:Arial,Helvetica,sans-serif; }

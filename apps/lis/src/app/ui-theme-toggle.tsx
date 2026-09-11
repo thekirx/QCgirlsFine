@@ -5,6 +5,7 @@ import { useUITheme, type UITheme } from "./ui-theme-provider";
 const themes: Array<{ value: UITheme; label: string }> = [
   { value: "modern", label: "Modern" },
   { value: "classic", label: "Classic" },
+  { value: "windows98", label: "Windows 98" },
 ];
 
 export function UIThemeToggle() {

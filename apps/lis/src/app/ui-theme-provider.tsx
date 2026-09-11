@@ -9,7 +9,7 @@ import {
   useSyncExternalStore,
 } from "react";
 
-export type UITheme = "modern" | "classic";
+export type UITheme = "modern" | "classic" | "windows98";
 export const UI_THEME_STORAGE_KEY = "optrizo-ui-theme";
 const UI_THEME_CHANGE_EVENT = "optrizo-ui-theme-change";
 
@@ -21,7 +21,7 @@ type UIThemeContextValue = {
 const UIThemeContext = createContext<UIThemeContextValue | null>(null);
 
 function isUITheme(value: string | undefined): value is UITheme {
-  return value === "modern" || value === "classic";
+  return value === "modern" || value === "classic" || value === "windows98";
 }
 
 function subscribeToUITheme(onStoreChange: () => void) {

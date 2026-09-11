@@ -33,7 +33,7 @@ export default function RootLayout({
       <head>
         <script
           dangerouslySetInnerHTML={{
-            __html: `(function(){try{var t=localStorage.getItem("optrizo-ui-theme");document.documentElement.dataset.uiTheme=t==="classic"?"classic":"modern";}catch(e){document.documentElement.dataset.uiTheme="modern";}})();`,
+            __html: `(function(){try{var t=localStorage.getItem("optrizo-ui-theme");document.documentElement.dataset.uiTheme=t==="classic"||t==="windows98"?t:"modern";}catch(e){document.documentElement.dataset.uiTheme="modern";}})();`,
           }}
         />
       </head>
